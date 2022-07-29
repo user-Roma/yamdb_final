@@ -36,6 +36,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
+        uses: ./api_yamdb/
         with:
           push: True
           tags: imbaspirit/yamdb:latest
