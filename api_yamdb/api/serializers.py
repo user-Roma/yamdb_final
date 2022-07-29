@@ -1,12 +1,11 @@
 import uuid
 
+from core.validators import year_validator
 from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
-
-from core.validators import year_validator
 from reviews.models import Category, Comment, Genre, Review, Title, User
 
 ERRORS = {
@@ -44,12 +43,6 @@ class SelfRegisterSerializer(CustomUserSerializer):
         confirm_code = uuid.uuid4().hex[:8]
         email = validated_data.get('email')
         username = validated_data.get('username')
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            confirm_code=confirm_code,
-            is_active=False,
-        )
         send_mail(
             settings.EMAIL_CONFIG.get('subject'),
             settings.EMAIL_CONFIG.get('text').format(username, confirm_code),
@@ -57,7 +50,12 @@ class SelfRegisterSerializer(CustomUserSerializer):
             [email],
             fail_silently=False,
         )
-        return user
+        return User.objects.create_user(
+            username=username,
+            email=email,
+            confirm_code=confirm_code,
+            is_active=False,
+        )
 
     class Meta:
         model = User
