@@ -56,4 +56,3 @@ jobs:
             sudo docker-compose stop
             sudo docker-compose rm web
             sudo docker-compose up
-
