@@ -12,7 +12,7 @@ This is a RESTful API for "YaMDb", a rating service for artworks like movies, bo
 [![Docker](https://img.shields.io/badge/-Docker-464646?style=flat&logo=Docker&logoColor=56C0C0&color=008080)](https://www.docker.com/)
 [![Docker-compose](https://img.shields.io/badge/-Docker%20compose-464646?style=flat&logo=Docker&logoColor=56C0C0&color=008080)](https://www.docker.com/)
 [![Docker Hub](https://img.shields.io/badge/-Docker%20Hub-464646?style=flat&logo=Docker&logoColor=56C0C0&color=008080)](https://www.docker.com/products/docker-hub)
-![example workflow](https://github.com/user-Roma/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
+[![example workflow](https://github.com/user-Roma/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)]
 ## .env template
 ``` 
 DB_ENGINE=foo
@@ -27,7 +27,7 @@ DJANGO_ALLOWED_HOSTS=*
 ## How to run the project in dev-mode
 - clone this repository to your local machine
 ```
-git clone https://github.com/SokolovskiR/api_yamdb
+git clone git@github.com:user-Roma/yamdb_final.git
 ``` 
 - create a virtual environment
 ```
