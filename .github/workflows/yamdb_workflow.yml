@@ -40,3 +40,19 @@ jobs:
           context: ./api_yamdb/
           push: True
           tags: imbaspirit/yamdb:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_and_push_to_docker_hub
+    steps:
+      - name: executing remote ssh commands to deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ SSH_PASSPHRASE }}
+          script: |
+            sudo docker-compose stop
+            sudo docker-compose rm web
+            sudo docker-compose up
