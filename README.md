@@ -31,15 +31,19 @@ git clone git@github.com:user-Roma/yamdb_final.git
 ``` 
 - create a virtual environment
 ```
-python3 m -venv venv
+python3 -m venv venv
 ``` 
 - activate virtual environment
 ```
 source venv/bin/activate
 ``` 
+- upgrade pip
+``` 
+python3 -m pip install --upgrade pip
+``` 
 - install dependencies in requirements.txt
 ```
-pip install -r requirements.txt
+pip install -r api_yamdb/requirements.txt
 ``` 
 - inside the folder with manage.py file execute the following command for migrations:
 ```
@@ -58,11 +62,11 @@ python3 manage.py runserver
 ```
 sudo systemctl start docker
 ```
-- create and start containers from the directory ../infra_sp2/infra/
+- create and start containers from the directory ./infra/
 ```
 sudo docker-compose up --build
 ```
-## Commands for filling the database, run from the directory ../infra_sp2/infra/
+## Commands for filling the database, run from the remote server: cloud-touch-01@130.193.41.106
 - run migrations 
 ```
 sudo docker-compose exec web python manage.py makemigrations
@@ -74,13 +78,17 @@ sudo docker-compose exec web python manage.py migrate
 ```
 sudo docker-compose exec web python manage.py collectstatic --no-input
 ```
-- OPTIONAL: copy test data
+- OPTIONAL: copy test data to remote server from the directory ./infra/
 ```
-sudo docker cp fixtures.json 5e7c14dfa40e:app/fixtures.json
+sudo scp test_database.json cloud-touch-01@130.193.41.106:/home/cloud-touch-01/
 ```
-- OPTIONAL: load data test data
+- OPTIONAL: copy test data into docker container
 ```
-sudo docker-compose exec web python manage.py loaddata fixtures.json
+sudo docker cp test_database.json <CONTAINER>:app/test_database.json
+```
+- OPTIONAL: load test database into yamdb project
+```
+sudo docker-compose exec web python manage.py loaddata test_database.json
 ```
 - create superuser
 ```
@@ -88,7 +96,7 @@ sudo docker-compose exec web python manage.py createsuperuser
 ```
 ## REST API available endpoints
 
-After you started the development server, go to */api/v1/redoc/* URL where you can find the API documentation with available endpoints.
+After you started the development server, go to *http://130.193.41.106/api/redoc/* URL where you can find the API documentation with available endpoints.
 
 ### Authors
 RomanS, AlexanderK, RomanY
