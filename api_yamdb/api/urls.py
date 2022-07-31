@@ -31,5 +31,5 @@ urlpatterns = [
         UserViewSet.as_view({'get': 'me', 'patch': 'me', 'delete': 'me'}),
         name='me',
     ),
-    path('v1/', include(router_v1.urls)),
+    path('v1/', include(router_v1.urls))
 ]
